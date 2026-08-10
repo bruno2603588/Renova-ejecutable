@@ -5,9 +5,9 @@ import threading
 import webbrowser
 import uvicorn
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine, Base
@@ -68,16 +68,16 @@ if ruta_dist.exists():
     # Manejo del enrutamiento SPA (React Router)
     @app.get("/{full_path:path}", include_in_schema=False)
     async def servir_spa(full_path: str):
-        # Evitar capturar peticiones a la API que devuelvan 404
-        rutas_api = ("citas", "clientes", "servicios", "pagos", "docs", "openapi.json")
-        if full_path.startswith(rutas_api):
-            return FileResponse(status_code=404)
+        # 1. Si la petición es explícita a la documentación de OpenAPI, dejar un 404 estándar
+        if full_path in ("docs", "openapi.json", "redoc"):
+            raise HTTPException(status_code=404, detail="Not Found")
         
+        # 2. Si el archivo físico existe (ej: favicon.ico, manifest.json, un logo), servirlo
         archivo_solicitado = ruta_dist / full_path
         if archivo_solicitado.exists() and archivo_solicitado.is_file():
             return FileResponse(archivo_solicitado)
         
-        # Redirigir cualquier otra ruta de navegación web al index.html
+        # 3. Para cualquier otra ruta web (ej: citas, clientes, accesos directos), entregar index.html
         return FileResponse(ruta_dist / "index.html")
 
 else:
