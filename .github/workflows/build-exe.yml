@@ -42,7 +42,7 @@ jobs:
     # 4. Generar ejecutable portable (--onefile)
     - name: Generar Ejecutable con PyInstaller
       run: |
-        pyinstaller --noconfirm --onefile --noconsole --hidden-import=uvicorn.logging --hidden-import=uvicorn.loops.auto --hidden-import=uvicorn.protocols.http.auto --hidden-import=pymysql --add-data "frontend/dist;dist" --name "RenovaApp" app/main.py
+        pyinstaller --noconfirm --onefile --hidden-import=uvicorn.logging --hidden-import=uvicorn.loops.auto --hidden-import=uvicorn.protocols.http.auto --hidden-import=pymysql --add-data "frontend/dist;dist" --name "RenovaApp" app/main.py
 
     # 5. Subir el .exe resultante como artefacto en GitHub Actions
     - name: Guardar Ejecutable
