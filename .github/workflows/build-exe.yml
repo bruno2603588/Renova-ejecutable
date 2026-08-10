@@ -1,0 +1,52 @@
+name: Compilar Ejecutable de Windows (.exe)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+
+    steps:
+    # 1. Descargar el repositorio
+    - name: Descargar Código
+      uses: actions/checkout@v4
+
+    # 2. Configurar Node.js y compilar React con Vite
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Compilar Frontend (React + Vite)
+      run: |
+        cd frontend
+        npm install
+        npm run build
+        cd ..
+
+    # 3. Configurar Python e instalar requerimientos
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Instalar Dependencias de Python
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    # 4. Generar ejecutable portable (--onefile)
+    - name: Generar Ejecutable con PyInstaller
+      run: |
+        pyinstaller --noconfirm --onefile --hidden-import=uvicorn.logging --hidden-import=uvicorn.loops.auto --hidden-import=uvicorn.protocols.http.auto --hidden-import=pymysql --add-data "frontend/dist;dist" --name "RenovaApp" app/main.py
+
+    # 5. Subir el .exe resultante como artefacto en GitHub Actions
+    - name: Guardar Ejecutable
+      uses: actions/upload-artifact@v4
+      with:
+        name: RenovaApp-Windows-x64
+        path: dist/RenovaApp.exe

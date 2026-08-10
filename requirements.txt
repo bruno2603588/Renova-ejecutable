@@ -1,0 +1,16 @@
+# Backend Core
+fastapi
+uvicorn[standard]
+aiofiles
+
+# ORM y Base de Datos
+sqlalchemy
+pymysql
+cryptography
+
+# Modelos y Variables de Entorno
+pydantic
+python-dotenv
+
+# Empaquetado Executable
+pyinstaller
