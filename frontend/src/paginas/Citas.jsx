@@ -15,7 +15,7 @@ const ENDPOINTS = {
       : `${BASE_URL}/citas/citas/`,
   
   // POST: Agendar nueva cita
-  AGENDAR_CITA: `${BASE_URL}/citas/citas/agendar/`,
+  AGENDAR: `${BASE_URL}/citas/citas/agendar`,
   
   // PUT: Cambiar estado
   CAMBIAR_ESTADO: (citaId) => `${BASE_URL}/citas/citas/estado?cita_id=${citaId}`
@@ -40,7 +40,7 @@ const fetchCitas = async (fecha) => {
 
 // POST: Registrar Cita
 const agendarCitaRequest = async (payload) => {
-  const response = await fetch('http://127.0.0.1:8000/citas/citas/agendar', {
+  const response = await fetch(ENDPOINTS.AGENDAR, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
