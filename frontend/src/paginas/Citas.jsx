@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../config';
 // ============================================================================
 // 1. CONFIGURACIÓN DE ENDPOINTS (Rutas exactas de tu FastAPI)
 // ============================================================================
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = API_BASE_URL;
 
 const ENDPOINTS = {
   // GET: Búsqueda por fecha o listado completo
@@ -40,7 +40,7 @@ const fetchCitas = async (fecha) => {
 
 // POST: Registrar Cita
 const agendarCitaRequest = async (payload) => {
-  const response = await fetch(ENDPOINTS.AGENDAR, {
+  const response = await fetch('/citas/citas/agendar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
