@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../config';
 // ============================================================================
 // 1. CONFIGURACIÓN DE ENDPOINTS (Rutas exactas de tu FastAPI)
 // ============================================================================
-const BASE_URL = API_BASE_URL;
+const BASE_URL = "http://localhost:8000";
 
 const ENDPOINTS = {
   // GET: Búsqueda por fecha o listado completo
