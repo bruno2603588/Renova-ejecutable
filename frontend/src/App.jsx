@@ -9,25 +9,29 @@ import Servicios from './paginas/Servicios';
 function App() {
   return (
     <Router>
-      <div className="flex bg-renova-bg min-h-screen">
-        {/* Barra lateral fija */}
+      {/* 
+        CAMBIO CLAVE: 
+        - flex-col: En celulares se apila (Sidebar arriba, Contenido abajo).
+        - md:flex-row: En computadoras (pantallas de más de 768px) se pone lado a lado.
+      */}
+      <div className="flex flex-col md:flex-row bg-renova-bg min-h-screen w-full overflow-x-hidden">
+        {/* Barra lateral */}
         <Sidebar />
 
         {/* Contenedor dinámico del contenido */}
-        <div className="flex-1 overflow-y-auto">
+        <main className="flex-1 w-full min-w-0 p-4 md:p-6 overflow-y-auto">
           <Routes>
             <Route path="/" element={<DashboardAdmin />} />
             <Route path="/citas" element={<Citas />} />
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/pagos" element={<GestionPagos />} />
-            <Route path="*" element={<DashboardAdmin />} />
             <Route path="/servicios" element={<Servicios />} />
+            <Route path="*" element={<DashboardAdmin />} />
           </Routes>
-        </div>
+        </main>
       </div>
     </Router>
   );
 }
 
 export default App;
-
