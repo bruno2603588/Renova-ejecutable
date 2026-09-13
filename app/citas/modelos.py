@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, func
 from sqlalchemy.orm import relationship
-from app.database import Base
+
+from database import Base
 import datetime
 
 class servicios(Base):

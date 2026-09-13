@@ -10,8 +10,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
+<<<<<<< HEAD
 from app.database import engine, Base
 from app.citas.rutas import router_citas, router_clientes, router_servicios, router_pagos
+=======
+from database import engine, Base
+from citas.rutas import router_citas,router_clientes, router_servicios, router_pagos
+>>>>>>> 320bf8c (refactorizacion de backend)
 
 
 # ============================================================================

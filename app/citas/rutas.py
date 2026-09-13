@@ -8,9 +8,15 @@ from datetime import date, timedelta
 
 from starlette import status
 
+<<<<<<< HEAD
 from app.database import SessionLocal
 from app.citas import modelos, esquemas
 from app.citas.modelos import servicios, clientes, citas, Pagos
+=======
+from database import SessionLocal
+from citas import modelos, esquemas
+from citas.modelos import servicios, clientes, citas, Pagos
+>>>>>>> 320bf8c (refactorizacion de backend)
 
 router_servicios = APIRouter(
     prefix="/servicios",
